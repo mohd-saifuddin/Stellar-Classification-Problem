@@ -1,0 +1,7 @@
+# Files
+AAIC_Self_Case_Study_1_Abstract.pdf
+*.pkl
+
+# Directories
+.ipynb_checkpoints
+data
