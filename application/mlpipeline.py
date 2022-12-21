@@ -9,11 +9,18 @@ class Pipline(object):
     query datapoint into the model for prediction.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, data) -> None:
+        self.data = data
         self.features = ['alpha', 'delta', 'u', 'g', 'r', 'i', 'z', 'redshift']
         self.target = 'class'
         self.df = None
     
+    def fetch_data(self) -> None:
+        """
+        This method fetches the data.
+        """
+        self.df = pd.DataFrame(data=self.data, columns=self.features)
+
     def preprocess(self) -> None:
         """
         This method preprocesses the data.
@@ -49,13 +56,14 @@ class Pipline(object):
         if pred_class == 'QSO': pred_class = 'Quasi-Stellar Object'
         elif pred_class == 'GALAXY': pred_class = 'Galaxy'
         else: pred_class = 'Star'
-        conclusion = "The predicted class is '{}' with a confidence of {}%.".format(pred_class, confidence)
-        return conclusion
+        c = "The predicted class is '{}' with a confidence of {}%.".format(pred_class, confidence)
+        return c
     
     def ml_pipeline(self):
         """
         This method is a pipeline.
         """
+        self.fetch_data()
         self.preprocess()
         self.featurize()
         return self.predict()
