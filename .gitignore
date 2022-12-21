@@ -2,6 +2,7 @@
 test_data.csv
 
 # Directories
+__pycache__
 .ipynb_checkpoints
 data
 analysis_dumps
