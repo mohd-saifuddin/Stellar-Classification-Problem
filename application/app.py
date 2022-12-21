@@ -2,7 +2,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 from dash import Dash, dcc, html, Input, Output
-from mlpipeline import Pipline as pipe
+from mlpipeline import Pipline
 
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -76,8 +76,8 @@ app.layout = html.Div(children=[
 )
 def ml_application(alpha, delta, u, g, r, i, z, redshift):
     data = [[alpha, delta, u, g, r, i, z, redshift]]
-    ml = pipe(data=data)
-    conclusion = ml.ml_pipeline()
+    pipe = Pipline(data=data)
+    conclusion = pipe.pipeline()
     return conclusion
 
 

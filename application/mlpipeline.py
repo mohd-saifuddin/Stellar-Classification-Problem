@@ -15,7 +15,7 @@ class Pipline(object):
         self.target = 'class'
         self.df = None
     
-    def fetch_data(self) -> None:
+    def fetch(self) -> None:
         """
         This method fetches the data.
         """
@@ -59,11 +59,11 @@ class Pipline(object):
         c = "The predicted class is '{}' with a confidence of {}%.".format(pred_class, confidence)
         return c
     
-    def ml_pipeline(self):
+    def pipeline(self) -> str:
         """
         This method is a pipeline.
         """
-        self.fetch_data()
+        self.fetch()
         self.preprocess()
         self.featurize()
         return self.predict()
