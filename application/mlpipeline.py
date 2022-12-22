@@ -1,6 +1,12 @@
+import warnings
+warnings.filterwarnings('ignore')
+
+import base64
 import numpy as np
+import os
 import pandas as pd
 import pickle
+import random
 
 
 class Pipline(object):
@@ -48,17 +54,45 @@ class Pipline(object):
         This method predicts the query datapoint.
         """
         with open(file='gb_classifier.pkl', mode='rb') as m_pkl:
-            _, sig_clf = pickle.load(file=m_pkl)
+            _, sig_clf, _  = pickle.load(file=m_pkl)
         
         pred_proba = sig_clf.predict_proba(X=self.df)
         confidence = np.round(a=np.max(a=pred_proba)*100, decimals=2)
         pred_class = sig_clf.predict(X=self.df)[0]
-        if pred_class == 'QSO': pred_class = 'Quasi-Stellar Object'
-        elif pred_class == 'GALAXY': pred_class = 'Galaxy'
-        else: pred_class = 'Star'
+
+        encoded_image = self.get_encoded_image(pred_class=pred_class)
+
+        if pred_class == 'QSO':
+            pred_class = 'Quasi-Stellar Object'
+        elif pred_class == 'GALAXY':
+            pred_class = 'Galaxy'
+        else:
+            pred_class = 'Star'
+
         c = "The predicted class is '{}' with a confidence of {}%.".format(pred_class, confidence)
-        return c
+        return c, encoded_image
     
+    def get_encoded_image(self, pred_class):
+        """
+        This method selects an image and encodes it.
+        """
+        image_root = os.path.join(os.getcwd(), './images')
+        if pred_class == 'QSO':
+            # image_class_path = os.path.join(image_root, 'qsos')
+            image_class_path = os.path.join(image_root, 'stars')
+        elif pred_class == 'GALAXY':
+            # image_class_path = os.path.join(image_root, 'galaxies')
+            image_class_path = os.path.join(image_root, 'stars')
+        else:
+            image_class_path = os.path.join(image_root, 'stars')
+        image_picked = random.choice(seq=os.listdir(path=image_class_path))
+        image_picked_path = os.path.join(image_class_path, image_picked)
+
+        image_picked_path = open(file=image_picked_path, mode='rb').read()
+        encoded_image = base64.b64encode(s=image_picked_path)
+        encoded_image = encoded_image.decode()
+        return 'data:image/jpeg;base64,{}'.format(encoded_image)
+        
     def pipeline(self) -> str:
         """
         This method is a pipeline.
