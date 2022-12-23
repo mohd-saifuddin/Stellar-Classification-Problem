@@ -49,7 +49,7 @@ class Pipline(object):
         self.df['z-r'] = self.df['z'] - self.df['r']
         self.df = self.df[fi_cols]
     
-    def predict(self) -> str:
+    def predict(self) -> tuple:
         """
         This method predicts the query datapoint.
         """
@@ -86,9 +86,10 @@ class Pipline(object):
         image_picked = random.choice(seq=os.listdir(path=image_class_path))
         image_picked_path = os.path.join(image_class_path, image_picked)
 
-        image = cv.imread(image_picked_path)
-        image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
-        image_fig = px.imshow(image)
+        image = cv.imread(filename=image_picked_path)
+        image = cv.cvtColor(src=image, code=cv.COLOR_BGR2RGB)
+
+        image_fig = px.imshow(img=image)
         image_fig.update_layout(
             coloraxis_showscale=False,
             autosize=True, height=500,
@@ -96,10 +97,8 @@ class Pipline(object):
         )
         image_fig.update_xaxes(showticklabels=False)
         image_fig.update_yaxes(showticklabels=False)
-
         return image_fig
 
-        
     def pipeline(self) -> str:
         """
         This method is a pipeline.
