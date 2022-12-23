@@ -115,7 +115,7 @@ app.layout = html.Div(children=[
                 tooltip={"placement": "bottom", "always_visible": True}
             ),
         ], className='six columns'),
-        html.Div(id='image-output-container', className='six columns')
+        html.Div(id='image-output-container', className='six columns'),
     ], className='row'),
     html.Br(),
     html.Div(children=[
@@ -124,7 +124,11 @@ app.layout = html.Div(children=[
             style={'textAlign': 'center', 'fontSize': 16},
             className='six columns'
         )
-    ], className='row')
+    ], className='row'),
+    html.Br(),
+    html.Div([html.P(children='Stellar Classification')], 
+        style={'textAlign': 'center', 'backgroundColor': '#D6EAF8', 'color': '#D6EAF8'}
+    ),
 ])
 
 @app.callback(
@@ -146,8 +150,8 @@ app.layout = html.Div(children=[
 def ml_application(alpha, delta, u, g, r, i, z, redshift):
     data = [[alpha, delta, u, g, r, i, z, redshift]]
     pipe = Pipline(data=data)
-    conclusion, encoded_image = pipe.pipeline()
-    return conclusion, html.Img(src=encoded_image, style={'width': 600, 'height': 500})
+    conclusion, fig = pipe.pipeline()
+    return conclusion, dcc.Graph(figure=fig)
 
 
 if __name__ == '__main__':

@@ -1,13 +1,13 @@
 import warnings
 warnings.filterwarnings('ignore')
 
-import base64
+import cv2 as cv
 import numpy as np
 import os
 import pandas as pd
 import pickle
+import plotly.express as px
 import random
-
 
 class Pipline(object):
     """
@@ -60,7 +60,7 @@ class Pipline(object):
         confidence = np.round(a=np.max(a=pred_proba)*100, decimals=2)
         pred_class = sig_clf.predict(X=self.df)[0]
 
-        encoded_image = self.get_encoded_image(pred_class=pred_class)
+        fig = self.get_encoded_image(pred_class=pred_class)
 
         if pred_class == 'QSO':
             pred_class = 'Quasi-Stellar Object'
@@ -70,7 +70,7 @@ class Pipline(object):
             pred_class = 'Star'
 
         c = "The predicted class is '{}' with a confidence of {}%.".format(pred_class, confidence)
-        return c, encoded_image
+        return c, fig
     
     def get_encoded_image(self, pred_class):
         """
@@ -78,20 +78,27 @@ class Pipline(object):
         """
         image_root = os.path.join(os.getcwd(), './images')
         if pred_class == 'QSO':
-            # image_class_path = os.path.join(image_root, 'qsos')
-            image_class_path = os.path.join(image_root, 'stars')
+            image_class_path = os.path.join(image_root, 'qsos')
         elif pred_class == 'GALAXY':
-            # image_class_path = os.path.join(image_root, 'galaxies')
-            image_class_path = os.path.join(image_root, 'stars')
+            image_class_path = os.path.join(image_root, 'galaxies')
         else:
             image_class_path = os.path.join(image_root, 'stars')
         image_picked = random.choice(seq=os.listdir(path=image_class_path))
         image_picked_path = os.path.join(image_class_path, image_picked)
 
-        image_picked_path = open(file=image_picked_path, mode='rb').read()
-        encoded_image = base64.b64encode(s=image_picked_path)
-        encoded_image = encoded_image.decode()
-        return 'data:image/jpeg;base64,{}'.format(encoded_image)
+        image = cv.imread(image_picked_path)
+        image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
+        image_fig = px.imshow(image)
+        image_fig.update_layout(
+            coloraxis_showscale=False,
+            autosize=True, height=500,
+            margin=dict(l=0, r=0, b=0, t=0)
+        )
+        image_fig.update_xaxes(showticklabels=False)
+        image_fig.update_yaxes(showticklabels=False)
+
+        return image_fig
+
         
     def pipeline(self) -> str:
         """
