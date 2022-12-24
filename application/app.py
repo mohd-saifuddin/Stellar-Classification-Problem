@@ -123,6 +123,11 @@ app.layout = html.Div(children=[
             id='slider-output-container',
             style={'textAlign': 'center', 'fontSize': 16},
             className='six columns'
+        ),
+        html.Div(
+            id='image-credits',
+            style={'textAlign': 'center', 'fontSize': 15},
+            className='six columns'
         )
     ], className='row'),
     html.Br(),
@@ -134,7 +139,8 @@ app.layout = html.Div(children=[
 @app.callback(
     [
         Output(component_id='slider-output-container', component_property='children'),
-        Output(component_id='image-output-container', component_property='children')
+        Output(component_id='image-output-container', component_property='children'),
+        Output(component_id='image-credits', component_property='children')
     ],
     [
         Input(component_id='alpha', component_property='value'),
@@ -150,8 +156,9 @@ app.layout = html.Div(children=[
 def ml_application(alpha, delta, u, g, r, i, z, redshift):
     data = [[alpha, delta, u, g, r, i, z, redshift]]
     pipe = Pipline(data=data)
-    conclusion, fig = pipe.pipeline()
-    return conclusion, dcc.Graph(figure=fig)
+    conclusion, fig, pred_class = pipe.pipeline()
+    image_credits = "A random {} image taken from nasa.gov image gallery.".format(pred_class.lower())
+    return conclusion, dcc.Graph(figure=fig), image_credits
 
 
 if __name__ == '__main__':
