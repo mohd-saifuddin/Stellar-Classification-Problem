@@ -8,7 +8,6 @@ from mlpipeline import Pipline
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = Dash(__name__, external_stylesheets=external_stylesheets)
-application = app.server
 app.title = "Stellar Classification"
 
 app.layout = html.Div(children=[
@@ -163,4 +162,4 @@ def ml_application(alpha, delta, u, g, r, i, z, redshift):
 
 
 if __name__ == '__main__':
-    application.run(debug=True, port=8080)
+    app.run_server(debug=True)
