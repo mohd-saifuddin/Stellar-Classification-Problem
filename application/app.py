@@ -47,7 +47,7 @@ app.layout = html.Div(children=[
                 id='u',
                 min=0,
                 max=30,
-                value=23,
+                value=22,
                 marks={
                     0: {'label': '0', 'style': {'color': '#17202A'}},
                     30: {'label': '30', 'style': {'color': '#17202A'}}
@@ -59,7 +59,7 @@ app.layout = html.Div(children=[
                 id='g',
                 min=0,
                 max=30,
-                value=10,
+                value=22,
                 marks={
                     0: {'label': '0', 'style': {'color': '#17202A'}},
                     30: {'label': '30', 'style': {'color': '#17202A'}}
@@ -71,7 +71,7 @@ app.layout = html.Div(children=[
                 id='r',
                 min=0,
                 max=30,
-                value=18,
+                value=25,
                 marks={
                     0: {'label': '0', 'style': {'color': '#17202A'}},
                     30: {'label': '30', 'style': {'color': '#17202A'}}
@@ -83,7 +83,7 @@ app.layout = html.Div(children=[
                 id='i',
                 min=0,
                 max=30,
-                value=18,
+                value=10,
                 marks={
                     0: {'label': '0', 'style': {'color': '#17202A'}},
                     30: {'label': '30', 'style': {'color': '#17202A'}}
@@ -95,7 +95,7 @@ app.layout = html.Div(children=[
                 id='z',
                 min=0,
                 max=30,
-                value=18,
+                value=5,
                 marks={
                     0: {'label': '0', 'style': {'color': '#17202A'}},
                     30: {'label': '30', 'style': {'color': '#17202A'}}
@@ -107,7 +107,7 @@ app.layout = html.Div(children=[
                 id='redshift',
                 min=0,
                 max=10,
-                value=2.5,
+                value=2,
                 marks={
                     0: {'label': '0', 'style': {'color': '#17202A'}},
                     10: {'label': '10', 'style': {'color': '#17202A'}}

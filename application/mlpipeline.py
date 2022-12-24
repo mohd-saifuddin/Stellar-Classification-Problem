@@ -53,12 +53,12 @@ class Pipline(object):
         """
         This method predicts the query datapoint.
         """
-        with open(file='gb_classifier.pkl', mode='rb') as m_pkl:
-            _, sig_clf, _  = pickle.load(file=m_pkl)
+        with open(file='stacking_classifier.pkl', mode='rb') as m_pkl:
+            clf  = pickle.load(file=m_pkl)
         
-        pred_proba = sig_clf.predict_proba(X=self.df)
+        pred_proba = clf.predict_proba(X=self.df)
         confidence = np.round(a=np.max(a=pred_proba)*100, decimals=2)
-        pred_class = sig_clf.predict(X=self.df)[0]
+        pred_class = clf.predict(X=self.df)[0]
 
         fig = self.get_encoded_image(pred_class=pred_class)
 
