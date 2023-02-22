@@ -13,3 +13,9 @@ __Dataset reference:__ fedesoriano. (January 2022). Stellar Classification Datas
 ### Approach
 
 My approach would be to do a thorough analysis of the data, apply classification algorithms, and compare the performance of the algorithms followed by final predictions.
+
+### Solution
+
+Application URL: https://mohd-saifuddin-stellar-classification-app-app-izkfa9.streamlit.app/
+
+Detailed blog URL: https://medium.com/@acesaif/stellar-classification-a-machine-learning-approach-5e23eb5cadb1
