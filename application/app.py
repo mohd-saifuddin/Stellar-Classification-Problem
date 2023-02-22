@@ -2,7 +2,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 from dash import Dash, dcc, html, Input, Output
-from mlpipeline import Pipline
+from mlpipeline import Pipeline
 
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -155,7 +155,7 @@ app.layout = html.Div(children=[
 )
 def ml_application(alpha, delta, u, g, r, i, z, redshift):
     data = [[alpha, delta, u, g, r, i, z, redshift]]
-    pipe = Pipline(data=data)
+    pipe = Pipeline(data=data)
     conclusion, fig, pred_class = pipe.pipeline()
     image_credits = "A random {} image taken from nasa.gov image gallery.".format(pred_class.lower())
     return conclusion, dcc.Graph(figure=fig), image_credits
