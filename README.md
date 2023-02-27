@@ -18,4 +18,6 @@ My approach would be to do a thorough analysis of the data, apply classification
 
 Application URL: https://mohd-saifuddin-stellar-classification-app-app-izkfa9.streamlit.app/
 
+Demo URL: https://youtu.be/KhxRSTC9lEI
+
 Detailed blog URL: https://medium.com/@acesaif/stellar-classification-a-machine-learning-approach-5e23eb5cadb1
