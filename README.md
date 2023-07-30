@@ -16,7 +16,7 @@ My approach would be to do a thorough analysis of the data, apply classification
 
 ### Solution
 
-Application URL: https://mohd-saifuddin-stellar-classification-app-app-izkfa9.streamlit.app/
+Application URL: https://huggingface.co/spaces/mohd-saifuddin/Stellar-Classification
 
 Demo URL: https://youtu.be/KhxRSTC9lEI
 
